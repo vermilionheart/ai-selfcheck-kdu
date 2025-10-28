@@ -12,310 +12,484 @@
         }
         
         body {
-            font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, 'Yu Gothic', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
+            line-height: 1.7;
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             background: white;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.35);
             overflow: hidden;
         }
         
         .header {
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
-            padding: 30px;
+            padding: 40px 30px;
             text-align: center;
         }
         
         .header h1 {
-            font-size: 28px;
-            margin-bottom: 10px;
+            font-size: 32px;
+            margin-bottom: 12px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
         
         .header p {
-            font-size: 14px;
-            opacity: 0.9;
+            font-size: 15px;
+            opacity: 0.95;
+            margin-bottom: 5px;
+        }
+        
+        .header .version {
+            font-size: 13px;
+            opacity: 0.85;
+            margin-top: 10px;
+            font-style: italic;
         }
         
         .main-content {
-            padding: 40px;
+            padding: 45px;
         }
         
         .info-box {
-            background: #f0f4ff;
-            border-left: 4px solid #667eea;
-            padding: 20px;
-            margin-bottom: 30px;
-            border-radius: 8px;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%);
+            border-left: 5px solid #667eea;
+            padding: 25px;
+            margin-bottom: 35px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.1);
         }
         
         .info-box h3 {
             color: #1e3c72;
-            margin-bottom: 10px;
-            font-size: 18px;
+            margin-bottom: 12px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-box h3 .icon {
+            margin-right: 10px;
+            font-size: 24px;
         }
         
         .info-box p {
             color: #555;
-            line-height: 1.6;
-            font-size: 14px;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+        
+        .info-box strong {
+            color: #2a5298;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 2px 6px;
+            border-radius: 4px;
         }
         
         .input-section {
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
         
         .input-section label {
             display: block;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             color: #333;
-            font-size: 16px;
+            font-size: 17px;
+        }
+        
+        .input-helper {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 12px;
+            padding-left: 5px;
         }
         
         #userInput {
             width: 100%;
-            min-height: 200px;
-            padding: 15px;
+            min-height: 220px;
+            padding: 18px;
             border: 2px solid #ddd;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 15px;
             font-family: inherit;
             resize: vertical;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
+            background: #fafafa;
         }
         
         #userInput:focus {
             outline: none;
             border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
         }
         
         .button-container {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
         
         #checkButton {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 15px 50px;
+            padding: 18px 60px;
             font-size: 18px;
             font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
         }
         
         #checkButton:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
         }
         
         #checkButton:active {
-            transform: translateY(0);
+            transform: translateY(-1px);
+        }
+        
+        #checkButton:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
         }
         
         .result-section {
             display: none;
-            margin-top: 30px;
+            margin-top: 35px;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .result-header {
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
             text-align: center;
-            font-size: 24px;
+            font-size: 26px;
             font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         
         .result-safe {
-            background: #d4edda;
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
             color: #155724;
-            border: 2px solid #c3e6cb;
+            border: 3px solid #b1dfbb;
         }
         
         .result-warning {
-            background: #fff3cd;
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
             color: #856404;
-            border: 2px solid #ffeaa7;
+            border: 3px solid #ffd93d;
         }
         
         .result-danger {
-            background: #f8d7da;
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
             color: #721c24;
-            border: 2px solid #f5c6cb;
+            border: 3px solid #f1aeb5;
         }
         
         .result-details {
             background: #f8f9fa;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 20px;
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         
         .result-details h3 {
             color: #333;
-            margin-bottom: 15px;
-            font-size: 18px;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 10px;
+            margin-bottom: 18px;
+            font-size: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 12px;
+            display: flex;
+            align-items: center;
         }
         
-        .reason-box {
-            background: #e8f5e9;
-            border-left: 4px solid #4caf50;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-        }
-        
-        .reason-box h4 {
-            color: #2e7d32;
-            margin-bottom: 8px;
-            font-size: 16px;
-        }
-        
-        .reason-box p {
-            color: #555;
-            line-height: 1.6;
-            font-size: 14px;
-        }
-        
-        .reason-box ul {
-            margin-left: 20px;
-            margin-top: 10px;
-            color: #555;
-            line-height: 1.8;
+        .result-details h3 .icon {
+            margin-right: 10px;
+            font-size: 24px;
         }
         
         .issue-item {
             background: white;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #dc3545;
+            padding: 22px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #dc3545;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+        
+        .issue-item:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transform: translateX(5px);
+        }
+        
+        .issue-item.warning {
+            border-left-color: #ffc107;
         }
         
         .issue-item h4 {
             color: #dc3545;
-            margin-bottom: 8px;
-            font-size: 16px;
+            margin-bottom: 12px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .issue-item.warning h4 {
+            color: #856404;
+        }
+        
+        .issue-item h4 .icon {
+            margin-right: 8px;
         }
         
         .issue-item p {
             color: #555;
-            line-height: 1.6;
-            margin-bottom: 8px;
+            line-height: 1.8;
+            margin-bottom: 10px;
             font-size: 14px;
         }
         
-        .issue-item .guideline-ref {
+        .match-details {
+            background: #fff8f8;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 3px solid #dc3545;
+        }
+        
+        .issue-item.warning .match-details {
+            background: #fffef8;
+            border-left-color: #ffc107;
+        }
+        
+        .match-details strong {
+            color: #dc3545;
+            font-size: 14px;
+        }
+        
+        .issue-item.warning .match-details strong {
+            color: #856404;
+        }
+        
+        .match-examples {
+            display: inline-flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 6px;
+        }
+        
+        .match-example {
+            background: #ffe5e5;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #721c24;
+            font-family: 'Courier New', monospace;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .issue-item.warning .match-example {
+            background: #fff5d5;
+            color: #856404;
+            border-color: #ffd93d;
+        }
+        
+        .reason-section {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 12px 0;
+            border: 2px solid #e9ecef;
+        }
+        
+        .reason-section h5 {
+            color: #495057;
+            font-size: 15px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .reason-section h5 .icon {
+            margin-right: 6px;
+        }
+        
+        .reason-section p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        
+        .guideline-ref {
             background: #ffe5e5;
             display: inline-block;
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 6px 12px;
+            border-radius: 6px;
             font-size: 13px;
             color: #721c24;
             font-weight: bold;
-        }
-        
-        .issue-reason {
-            background: #fff3e0;
-            padding: 12px;
-            border-radius: 6px;
             margin-top: 10px;
-            border-left: 3px solid #ff9800;
+            border: 1px solid #f5c6cb;
         }
         
-        .issue-reason h5 {
-            color: #e65100;
-            margin-bottom: 6px;
-            font-size: 14px;
-        }
-        
-        .issue-reason p {
-            color: #555;
-            font-size: 13px;
-            line-height: 1.6;
+        .issue-item.warning .guideline-ref {
+            background: #fff5d5;
+            color: #856404;
+            border-color: #ffd93d;
         }
         
         .suggestion {
-            background: #e7f3ff;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #007bff;
-            margin-top: 10px;
+            background: linear-gradient(135deg, #e7f3ff 0%, #d5ebff 100%);
+            padding: 18px;
+            border-radius: 10px;
+            border-left: 5px solid #007bff;
+            margin-top: 15px;
+            box-shadow: 0 2px 6px rgba(0,123,255,0.1);
         }
         
         .suggestion h4 {
             color: #007bff;
-            margin-bottom: 8px;
-            font-size: 15px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .suggestion h4 .icon {
+            margin-right: 8px;
         }
         
         .suggestion p {
             color: #555;
             font-size: 14px;
-            line-height: 1.6;
+            line-height: 1.8;
+        }
+        
+        .suggestion ul {
+            margin-left: 20px;
+            margin-top: 8px;
+            color: #555;
+        }
+        
+        .suggestion li {
+            margin-bottom: 5px;
+            line-height: 1.7;
         }
         
         .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 18px;
+            margin-top: 25px;
         }
         
         .stat-box {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
+            background: linear-gradient(135deg, white 0%, #f8f9fa 100%);
+            padding: 20px;
+            border-radius: 10px;
             text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border: 2px solid #e9ecef;
+            transition: all 0.3s;
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
         }
         
         .stat-box .number {
-            font-size: 32px;
+            font-size: 38px;
             font-weight: bold;
             color: #667eea;
+            margin-bottom: 8px;
         }
         
         .stat-box .label {
-            font-size: 13px;
+            font-size: 14px;
             color: #666;
-            margin-top: 5px;
+            font-weight: 500;
         }
         
         .footer {
-            background: #f8f9fa;
-            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
             text-align: center;
             color: #666;
             font-size: 13px;
+            border-top: 3px solid #dee2e6;
+        }
+        
+        .footer p {
+            margin-bottom: 8px;
+            line-height: 1.7;
+        }
+        
+        .footer strong {
+            color: #495057;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #667eea;
+            font-size: 16px;
+        }
+        
+        .loading .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         @media (max-width: 768px) {
             .main-content {
-                padding: 20px;
+                padding: 25px;
             }
             
             .header h1 {
-                font-size: 22px;
+                font-size: 24px;
             }
             
             #checkButton {
-                padding: 12px 30px;
+                padding: 15px 40px;
                 font-size: 16px;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -324,45 +498,59 @@
     <div class="container">
         <div class="header">
             <h1>🤖 生成AI使用セルフチェック支援ツール</h1>
-            <p>神奈川歯科大学 ICT運営委員会 | Google AI Pro for Education 利用ガイドライン準拠</p>
+            <p>神奈川歯科大学 ICT運営委員会</p>
+            <p>Google AI Pro for Education 利用ガイドライン準拠</p>
+            <p class="version">第1.1版対応(2025年10月)</p>
         </div>
         
         <div class="main-content">
             <div class="info-box">
-                <h3>📋 このツールについて</h3>
-                <p>Google AI Pro for Educationに入力する前に、内容が利用ガイドラインに適合しているかをチェックします。個人情報、機密情報、著作権侵害などのリスクを事前に検出し、適切な利用を支援します。<strong>入力内容は外部に送信されず、ブラウザ内で完結します。</strong></p>
+                <h3><span class="icon">📋</span>このツールについて</h3>
+                <p>Google AI Pro for Educationに入力する前に、内容が<strong>「生成AIの利用ガイドライン」</strong>に適合しているかを自動チェックします。個人情報、機密情報、著作権侵害などのリスクを事前検出し、適切な利用を支援します。</p>
+                <p style="margin-top: 10px;"><strong>🔒 プライバシー保護:</strong> 入力内容は外部サーバーに送信されず、お使いのブラウザ内で完結処理されます。</p>
             </div>
             
             <div class="input-section">
-                <label for="userInput">生成AIに入力予定の内容を貼り付けてください:</label>
-                <textarea id="userInput" placeholder="例: 「ある科目の全学生の成績を添付し、その成績をもとに問題作成」&#10;&#10;このツールは以下をチェックします:&#10;・個人情報(氏名、住所、電話番号等)&#10;・患者情報・カルテ番号&#10;・機密情報を示唆する用語&#10;・著作権に関わる表現&#10;・その他のリスク要因&#10;&#10;判定理由も詳しく表示されます。"></textarea>
+                <label for="userInput">🖊️ 生成AIに入力予定の内容を貼り付けてください:</label>
+                <div class="input-helper">
+                    💡 このツールは以下をチェック: 個人情報(氏名・住所・電話等) / 患者情報・カルテ番号 / 機密情報 / 著作権関連表現 / その他リスク要因
+                </div>
+                <textarea id="userInput" placeholder="例:「横浜市在住の山田太郎さん(学籍番号:12345)の成績レポートを分析してください」
+
+このような内容を入力すると、個人情報(氏名・住所・学籍番号)が検出され、ガイドライン違反として警告されます。
+
+✅ 推奨される入力例:「Aさんの成績レポートを分析してください」"></textarea>
             </div>
             
             <div class="button-container">
                 <button id="checkButton" onclick="performCheck()">🔍 チェック開始</button>
             </div>
             
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>チェック中...</p>
+            </div>
+            
             <div id="resultSection" class="result-section">
                 <div id="resultHeader" class="result-header"></div>
                 
                 <div class="result-details">
+                    <h3><span class="icon">📊</span>チェック結果サマリー</h3>
                     <div class="stats">
                         <div class="stat-box">
                             <div class="number" id="charCount">0</div>
-                            <div class="label">文字数</div>
+                            <div class="label">入力文字数</div>
                         </div>
                         <div class="stat-box">
                             <div class="number" id="issueCount">0</div>
-                            <div class="label">検出された問題</div>
+                            <div class="label">検出問題数</div>
                         </div>
                         <div class="stat-box">
                             <div class="number" id="riskLevel">-</div>
-                            <div class="label">リスクレベル</div>
+                            <div class="label">総合リスクレベル</div>
                         </div>
                     </div>
                 </div>
-                
-                <div id="judgmentReason"></div>
                 
                 <div id="issuesContainer"></div>
                 
@@ -371,108 +559,369 @@
         </div>
         
         <div class="footer">
-            <p>⚠️ このツールは補助的なチェック機能です。最終的な判断は利用者ご自身で行ってください。</p>
-            <p>© 2025 神奈川歯科大学 ICT運営委員会 | 生成AIの利用ガイドライン 第1.1版準拠</p>
+            <p>⚠️ <strong>重要:</strong> このツールは補助的なチェック機能です。最終的な判断は利用者ご自身の責任で行ってください。</p>
+            <p>📖 詳細は「生成AIの利用ガイドライン 第1.1版」を必ずご確認ください。</p>
+            <p>© 2025 神奈川歯科大学 ICT運営委員会</p>
         </div>
     </div>
 
     <script>
-        // チェックルールの定義
+        // チェックルールの詳細定義(ガイドライン第1.1版準拠)
         const checkRules = [
             {
-                category: '個人情報(特定個人)',
+                category: '個人情報の入力',
                 severity: 'danger',
                 patterns: [
-                    { regex: /[ぁ-ん一-龯]{2,4}\s*[太一二三四五六七八九十郎子美花]\s*[郎子さん君様]/g, name: '特定できる人名' },
-                    { regex: /\d{3}-\d{4}-\d{4}|\d{10,11}/g, name: '電話番号' },
-                    { regex: /〒?\d{3}-?\d{4}/g, name: '郵便番号' },
-                    { regex: /[^\s]+@[^\s]+\.[^\s]+/g, name: 'メールアドレス' },
-                    { regex: /学籍番号[::]?\s*\d+|社員番号[::]?\s*\d+|職員番号[::]?\s*\d+/gi, name: '特定の識別番号' },
-                    { regex: /(東京|神奈川|大阪|北海道|福岡|愛知|埼玉|千葉|兵庫|静岡)[都道府県市区町村][^\s]{5,}/g, name: '詳細な住所情報' },
-                    { regex: /生年月日[::]?\s*\d{4}年\d{1,2}月\d{1,2}日|年齢[::]?\s*\d+歳/gi, name: '生年月日・年齢' }
+                    { 
+                        regex: /[ぁ-ん一-龯]{2,4}\s*[太一二三四五六七八九十郎子美花良夫雄]\s*[郎朗子さん君様氏]|[ぁ-ん一-龯]{2,4}\s*(先生|教授|准教授|講師|助教)/g, 
+                        name: '人名らしき表現',
+                        detail: '氏名は個人を特定する代表的な個人情報です'
+                    },
+                    { 
+                        regex: /\d{2,4}[-ー]\d{3,4}[-ー]\d{4}|\d{10,11}(?!\d)/g, 
+                        name: '電話番号形式',
+                        detail: '電話番号は連絡先情報として保護対象です'
+                    },
+                    { 
+                        regex: /〒?\s?\d{3}[-ー]?\d{4}/g, 
+                        name: '郵便番号',
+                        detail: '郵便番号から居住地域が特定される可能性があります'
+                    },
+                    { 
+                        regex: /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g, 
+                        name: 'メールアドレス',
+                        detail: 'メールアドレスは個人識別子として機能します'
+                    },
+                    { 
+                        regex: /学籍番号|社員番号|職員番号|従業員番号|ID[::]?\s*[A-Z0-9]{3,}|学生ID|職員ID/gi, 
+                        name: '識別番号',
+                        detail: '組織内の個人識別番号は厳格に保護すべき情報です'
+                    },
+                    { 
+                        regex: /(東京|神奈川|大阪|北海道|福岡|愛知|埼玉|千葉|兵庫|静岡|横浜|川崎|さいたま|名古屋|京都|神戸|札幌|仙台|広島|福岡)[都道府県市区町村][^\s、。]{4,}/g, 
+                        name: '住所情報',
+                        detail: '詳細な住所は個人の居所を特定する情報です'
+                    },
+                    { 
+                        regex: /生年月日|生まれ|誕生日|年齢[::]?\s*\d+\s*[歳才]|[12][0-9]{3}年\d{1,2}月\d{1,2}日生/gi, 
+                        name: '年齢・生年月日',
+                        detail: '生年月日や年齢は個人識別に利用される重要情報です'
+                    },
+                    { 
+                        regex: /(成績|評価|点数|得点|出席|欠席)\s*(を|の)?\s*(添付|アップロード|ファイル|データ|リスト|一覧|表|名簿)|個人名\s*(を)?\s*含|氏名\s*(入り|付き|あり)/gi, 
+                        name: '個人情報を含むデータの添付・入力',
+                        detail: 'ファイル添付や個人情報を含むデータの入力を示唆する表現です'
+                    },
+                    { 
+                        regex: /(全学生|全員|クラス全員|受講者全員|履修者|学生たち)\s*(の)?\s*(成績|名前|氏名|リスト|名簿|データ|情報)/gi, 
+                        name: '複数学生の個人情報',
+                        detail: '複数の学生の個人情報を含むデータの利用を示唆しています'
+                    },
+                    { 
+                        regex: /(名簿|リスト|一覧|表)\s*(を)?\s*(もとに|基に|参考に|見て|使って|利用して|添付して)/gi, 
+                        name: '個人情報リストの利用',
+                        detail: '個人情報を含むリストやデータを利用しようとしています'
+                    }
                 ],
-                guidelineRef: 'ガイドライン3条(1)、5条(4)',
-                description: '特定の個人を識別できる情報が含まれています。本人の同意なく入力することは禁止されています。',
-                suggestion: '個人名を「学生A」「受講者X」などの仮名に置き換えてください。識別番号や連絡先情報は完全に削除してください。',
-                reason: '特定個人の氏名、連絡先、識別番号などが検出されました。これらは個人情報保護法上の「個人情報」に該当し、本人の同意なく第三者(生成AIサービス提供者)に提供することは法律違反となります。'
+                guidelineRef: 'ガイドライン5条(4)',
+                reason: 'Google AI Pro for Educationでは入力データは学習に利用されませんが、個人情報を入力する場合は当該本人の同意取得が必要です。現実的に同意取得は困難なため、個人情報の入力は禁止されています。「成績データ」や「学生名簿」などのファイル添付も、個人名が含まれている場合は同様に禁止です。',
+                description: '個人を特定できる情報が検出されました。',
+                suggestion: '個人名は「Aさん」「学生X」「患者α」などの仮名に置き換えてください。識別番号・連絡先情報・住所は完全に削除してください。年齢は「20代」のように年代表記に変更できます。成績データや名簿を添付する場合は、事前に個人名を全て削除・匿名化してください。'
             },
             {
-                category: '患者・診療情報',
+                category: '患者・診療情報(歯科含む)',
                 severity: 'danger',
                 patterns: [
-                    { regex: /患者[::]?\s*[ぁ-ん一-龯]{2,4}|カルテ[::]?\s*\d+号/g, name: '特定患者情報' },
-                    { regex: /診療記録|病歴|症例[::]?\s*[ぁ-ん一-龯]|治療経過|処方[::]?\s*[^\s]+/g, name: '詳細な医療記録' },
-                    { regex: /診断[::]?\s*[^\s]+|病名[::]?\s*[^\s]+|検査結果[::]?\s*[^\s]+/g, name: '診断・検査情報' }
+                    { 
+                        regex: /患者|カルテ|診療記録|病歴|症例|治療経過|処方箋|投薬|診察|医療記録/g, 
+                        name: '医療記録関連用語',
+                        detail: '診療・医療に関する記録は機密性の高い個人情報です'
+                    },
+                    { 
+                        regex: /診断|病名|疾患名|症状|検査結果|画像所見|レントゲン|CT|MRI|血液検査/g, 
+                        name: '診断・検査情報',
+                        detail: '健康状態に関する情報は特に慎重な取り扱いが必要です'
+                    },
+                    { 
+                        regex: /患者番号|カルテ番号|診察券番号|[0-9]{4,8}号|受付番号/g, 
+                        name: 'カルテ・患者番号',
+                        detail: '医療機関での個人識別番号は厳格に保護されます'
+                    },
+                    { 
+                        regex: /初診|再診|入院|外来|手術|治療方針|予後/g, 
+                        name: '診療過程情報',
+                        detail: '診療の経過や方針は患者のプライバシーに関わります'
+                    },
+                    { 
+                        regex: /口腔内写真|デンタル写真|パノラマ写真|セファロ|X線写真|レントゲン画像|CT画像|CBCT/gi, 
+                        name: '歯科画像データ',
+                        detail: '口腔内写真やX線画像には個人を特定できる情報が含まれます'
+                    },
+                    { 
+                        regex: /歯式|デンタルチャート|歯科記録|補綴物|インプラント|クラウン|ブリッジ|義歯|歯周ポケット/gi, 
+                        name: '歯科診療記録',
+                        detail: '歯科特有の診療記録も患者の個人情報として保護されます'
+                    },
+                    { 
+                        regex: /実習患者|臨床実習|ケースプレゼン|症例発表|症例報告|ケースレポート/gi, 
+                        name: '臨床実習・症例関連',
+                        detail: '実習や症例報告に実在患者の情報を含めることは禁止されています'
+                    },
+                    { 
+                        regex: /(写真|画像|ファイル|データ)\s*(を)?\s*(加工|編集|修正|レタッチ|ぼかし|マスク)/gi, 
+                        name: '医療画像の加工依頼',
+                        detail: '患者の画像を加工する場合も個人情報保護が必要です'
+                    }
                 ],
-                guidelineRef: 'ガイドライン3条(1)、3条(3)',
-                description: '特定できる患者情報や詳細な診療記録が含まれている可能性があります。',
-                suggestion: '患者情報は完全に匿名化するか、架空の症例として一般化してください。',
-                reason: '患者を特定できる情報や詳細な診療情報が検出されました。医療情報は特に機微な個人情報であり、厳格な保護が必要です。また、診療判断の自動化にもつながる可能性があります。'
+                guidelineRef: 'ガイドライン5条(4)、3条(3)',
+                reason: '患者情報・診療記録は極めて機密性の高い個人情報であり、本人同意なしの入力は禁止されています。口腔内写真やX線画像には顔貌や歯列など個人を特定できる情報が含まれるため、プライバシーマスクが不十分な状態での入力は禁止です。実習症例やケースプレゼンテーションでも、実在患者の情報は完全に匿名化する必要があります。また、生成AIによる診療判断の自動化も禁止されています。',
+                description: '患者情報や診療記録(歯科画像・歯科記録を含む)が含まれている可能性が高いです。',
+                suggestion: '実在の患者情報は入力しないでください。口腔内写真・X線画像・デンタルチャート等は、たとえ加工目的でも患者特定可能な状態での入力は禁止です。教育目的(実習レポート・ケースプレゼン等)の場合は完全な架空症例として記述するか、患者情報を完全に削除・匿名化してください。診療判断はAIに委ねず、必ず歯科医師の専門的判断を最優先してください。'
             },
             {
                 category: '機密・秘密情報',
                 severity: 'danger',
                 patterns: [
-                    { regex: /秘密|機密|社外秘|部外秘|confidential|secret/gi, name: '機密指定用語' },
-                    { regex: /NDA|秘密保持契約|守秘義務|非開示契約/gi, name: '契約関連用語' },
-                    { regex: /パスワード[::]?\s*[^\s]+|暗証番号[::]?\s*\d+|PIN[::]?\s*\d+/gi, name: '認証情報' },
-                    { regex: /特許出願前|未公開研究|独自技術|ノウハウ/gi, name: '知的財産情報' }
+                    { 
+                        regex: /秘密|機密|社外秘|部外秘|取扱注意|confidential|secret|classified/gi, 
+                        name: '機密指定用語',
+                        detail: '文書に機密レベルが指定されている可能性があります'
+                    },
+                    { 
+                        regex: /NDA|秘密保持契約|守秘義務|非開示契約|秘密保持義務|守秘契約/gi, 
+                        name: '秘密保持契約関連',
+                        detail: '契約により第三者への開示が制限されている情報の可能性があります'
+                    },
+                    { 
+                        regex: /パスワード|password|暗証番号|PIN|認証コード|アクセスキー|秘密鍵|private\s*key/gi, 
+                        name: '認証・セキュリティ情報',
+                        detail: 'システムアクセスに関わる認証情報は絶対に入力禁止です'
+                    },
+                    { 
+                        regex: /特許|ノウハウ|技術情報|研究データ|未公開|開発中|実験結果|プロトタイプ/gi, 
+                        name: '知的財産・研究情報',
+                        detail: '未公開の技術・研究情報は組織の競争力に関わります'
+                    },
+                    { 
+                        regex: /内部資料|社内限り|役員限り|幹部会議|経営会議|理事会/gi, 
+                        name: '内部文書・会議情報',
+                        detail: '組織内部での限定共有を前提とした情報です'
+                    }
                 ],
-                guidelineRef: 'ガイドライン3条(5)、5条(5)、5条(6)',
-                description: '機密情報や秘密保持義務の対象となる情報が含まれている可能性があります。',
-                suggestion: '機密情報は入力しないでください。必要な場合は一般化・抽象化した表現に変更してください。',
-                reason: '機密指定された情報や秘密保持契約の対象情報が検出されました。これらを外部サービスに入力することは契約違反や営業秘密の喪失につながります。'
+                guidelineRef: 'ガイドライン5条(5)、5条(6)',
+                reason: '他機関からNDA等で秘密保持義務を課された情報を外部AIに入力することは、第三者への開示に該当し契約違反となります。また自組織の機密情報も、法的保護が失われたり特許出願ができなくなるリスクがあります。',
+                description: '機密情報または秘密保持義務の対象となる情報が含まれています。',
+                suggestion: '機密情報・NDA対象情報・認証情報は絶対に入力しないでください。必要な場合は一般化・抽象化した表現に変更するか、公開情報のみを使用してください。'
             },
             {
                 category: '著作権関連',
                 severity: 'warning',
                 patterns: [
-                    { regex: /[『「][\u4E00-\u9FFF\u3040-\u309F\u30A0-\u30FFa-zA-Z\s]{3,20}[」』]\s*(風|のような|っぽい|みたいな|スタイル|真似)/g, name: '特定作品の模倣依頼' },
-                    { regex: /(村上春樹|夏目漱石|太宰治|芥川龍之介|東野圭吾|宮沢賢治|川端康成|三島由紀夫)\s*(風|のような|っぽい|みたいな|スタイル|真似)/g, name: '特定作家の模倣依頼' },
-                    { regex: /教科書\s*(の\s*)?(全文|内容|一部)\s*を\s*(コピー|複製|転載)/g, name: '著作物の複製依頼' },
-                    { regex: /論文\s*(の\s*)?(全文|内容)\s*を\s*(要約|まとめ|書き直)/g, name: '論文の改変依頼' }
+                    { 
+                        regex: /[『「][^『「」』]{3,30}[」』]\s*(風|のような|っぽい|みたいな|スタイル|的な)/g, 
+                        name: '特定作品の模倣依頼',
+                        detail: '既存の著作物と類似する生成物が作られる可能性があります'
+                    },
+                    { 
+                        regex: /(村上春樹|夏目漱石|太宰治|芥川龍之介|東野圭吾|宮沢賢治|川端康成|三島由紀夫)\s*(風|のような|っぽい|みたいな|スタイル|的な文体)/g, 
+                        name: '特定作家の文体模倣依頼',
+                        detail: '作家名を指定すると著作権侵害のリスクが高まります'
+                    },
+                    { 
+                        regex: /教科書|論文|書籍|記事|新聞|雑誌\s*の?\s*(全文|内容|一部|抜粋)\s*を?(要約|まとめ|コピー|複製)/g, 
+                        name: '著作物の複製・要約依頼',
+                        detail: '既存著作物の複製や類似生成は著作権侵害になる可能性があります'
+                    },
+                    { 
+                        regex: /コピー|複製|転載|引用\s*し?て|丸写し|そのまま/g, 
+                        name: '複製行為の指示',
+                        detail: '他者の著作物をそのまま複製する意図が感じられます'
+                    },
+                    { 
+                        regex: /作品名|タイトル|曲名|歌詞|脚本|シナリオ/g, 
+                        name: '著作物の構成要素',
+                        detail: '具体的な著作物の要素を指定すると類似性が高まります'
+                    }
                 ],
-                guidelineRef: 'ガイドライン3条(2)、5条(1)、6条(2)①',
-                description: '著作権侵害につながる可能性のある表現が含まれています。',
-                suggestion: '特定の作家名や作品名を避け、「学術的な文体」「ビジネス文書風」など一般的な表現を使用してください。',
-                reason: '特定の作家・作品を指定した模倣依頼が検出されました。生成物が既存著作物と類似する可能性が高く、その利用は著作権侵害となるリスクがあります。'
+                guidelineRef: 'ガイドライン5条(1)、6条(2)①',
+                reason: 'プロンプトに既存著作物・作家名・作品名を入力すると、生成物が既存著作物と類似し著作権侵害になる可能性があります。特に生成物を配信・公開する場合は注意が必要です。',
+                description: '著作権侵害につながる可能性のある表現が検出されました。',
+                suggestion: '特定の作家名や作品名の使用は避けてください。「ビジネス文書風」「学術論文調」「分かりやすい解説文」など、一般的なスタイル指定を使用してください。生成物を公開する場合は既存著作物との類似性を必ず確認してください。'
             },
             {
                 category: '商標・ブランド',
                 severity: 'warning',
                 patterns: [
-                    { regex: /ロゴ.*作成|商標.*デザイン|ブランド.*ロゴ/g, name: '商標関連の生成依頼' },
-                    { regex: /(Apple|Google|Microsoft|Amazon|Nike|Adidas|Sony|Toyota|Canon|Nikon)\s*(風|のような|っぽい|みたいな|類似)/gi, name: '有名ブランドの模倣' }
+                    { 
+                        regex: /ロゴ|商標|ブランド\s*(デザイン|ロゴ|マーク)|キャッチコピー\s*(作成|生成)|企業マーク/g, 
+                        name: '商標デザインの生成依頼',
+                        detail: '既存の登録商標と類似するデザインが生成される可能性があります'
+                    },
+                    { 
+                        regex: /(Apple|Google|Microsoft|Amazon|Facebook|Meta|Nike|Adidas|Sony|Toyota|Honda|Panasonic|Canon|Nikon)\s*(風|のような|っぽい|みたいな|スタイル)/gi, 
+                        name: '有名ブランドの模倣指定',
+                        detail: '有名ブランドを模倣すると商標権・意匠権侵害のリスクがあります'
+                    },
+                    { 
+                        regex: /パッケージデザイン|製品デザイン|商品デザイン|包装デザイン/g, 
+                        name: '意匠関連のデザイン依頼',
+                        detail: '登録意匠と類似するデザインが生成される可能性があります'
+                    }
                 ],
                 guidelineRef: 'ガイドライン5条(2)、6条(2)②',
-                description: '商標権や意匠権に関わる可能性のある内容が含まれています。',
-                suggestion: '生成物を商用利用する場合は、既存の登録商標・意匠との類似性を必ず調査してください。',
-                reason: '既存ブランドに類似したデザイン生成の依頼が検出されました。生成物が既存の登録商標・意匠と類似する場合、商用利用は権利侵害となります。'
+                reason: 'ロゴやデザインの入力自体は権利侵害になりませんが、生成物を商用利用する場合、既存の登録商標・意匠と類似していると権利侵害となります。',
+                description: '商標権や意匠権に関わる可能性のある内容が検出されました。',
+                suggestion: '有名ブランド名の使用は避けてください。生成されたロゴ・デザイン・キャッチコピーを商用利用する前に、必ず特許庁の商標・意匠データベースで類似性を調査してください。'
             },
             {
-                category: '診療判断の自動化',
+                category: '画像ファイルの不適切な入力',
                 severity: 'danger',
                 patterns: [
-                    { regex: /診断して|診断をお願い|何の病気|病名を教えて/g, name: '診断依頼' },
-                    { regex: /治療方針.*決定|処方.*推奨|手術.*すべき/g, name: '治療判断の依頼' },
-                    { regex: /この症状.*診断|患者.*診断結果/g, name: '症状からの診断依頼' }
+                    { 
+                        regex: /(画像|写真|ファイル|JPG|JPEG|PNG|PDF)\s*(を)?\s*(添付|アップロード|送信|入力)/gi, 
+                        name: '画像ファイルの添付',
+                        detail: '医療画像や学生写真には個人情報が含まれる可能性があります'
+                    },
+                    { 
+                        regex: /(顔|顔写真|人物写真|ポートレート|証明写真|学生証)\s*(の)?\s*(画像|写真|ファイル)/gi, 
+                        name: '人物写真',
+                        detail: '顔写真は個人を特定する最も直接的な情報です'
+                    },
+                    { 
+                        regex: /(この画像|この写真|添付画像|添付写真)\s*(を)?\s*(加工|編集|修正|ぼかし|マスク|レタッチ|処理)/gi, 
+                        name: '画像加工依頼',
+                        detail: '患者や学生の画像加工には個人情報保護の観点が必要です'
+                    },
+                    { 
+                        regex: /(口腔内|口の中|歯|歯列|歯並び|咬合)\s*(の)?\s*(画像|写真|ファイル)\s*(を)?\s*(添付|送信|加工|編集)/gi, 
+                        name: '口腔内画像の入力',
+                        detail: '口腔内写真には歯列など個人を特定できる情報が含まれます'
+                    },
+                    { 
+                        regex: /(X線|レントゲン|パノラマ|セファロ|CT|CBCT)\s*(画像|写真|ファイル)\s*(を)?\s*(添付|送信|分析|診断)/gi, 
+                        name: 'X線画像の入力',
+                        detail: 'X線画像は患者の個人情報であり診療記録です'
+                    },
+                    { 
+                        regex: /プライバシー\s*(が)?\s*(保護されていない|マスクなし|モザイクなし|未処理|不十分)/gi, 
+                        name: 'プライバシー保護不十分',
+                        detail: 'プライバシー保護が不十分な画像の入力を示唆しています'
+                    }
+                ],
+                guidelineRef: 'ガイドライン5条(4)、3条(1)',
+                reason: '画像ファイルには個人を特定できる情報が含まれている可能性が高いです。特に顔写真・口腔内写真・X線画像などの医療画像は、患者や学生の個人情報であり、本人の同意なしに生成AIへ入力することは禁止されています。たとえ画像加工やプライバシーマスク処理を依頼する目的であっても、マスク処理が不十分な状態での入力は個人情報保護法違反となります。',
+                description: '個人を特定できる可能性のある画像ファイルの入力が示唆されています。',
+                suggestion: '顔写真・口腔内写真・X線画像などは、完全にプライバシーマスク処理(顔のぼかし・目隠し、個人特定情報の削除)を行ってから入力してください。マスク処理をAIに依頼する場合は、事前に手動で十分なマスク処理を行ってください。教育用画像は完全な架空データまたは同意取得済みの画像のみを使用してください。患者のX線画像やカルテ画像は原則として入力禁止です。'
+            },
+            {
+                category: '診療判断の自動化(歯科診療含む)',
+                severity: 'danger',
+                patterns: [
+                    { 
+                        regex: /診断して|診断を下|診断をお願い|治療方針\s*(を)?(決定|決めて|教えて)|処方\s*(を)?(推奨|提案|決めて)/g, 
+                        name: '診療判断の依頼',
+                        detail: '医療判断をAIに委ねることは禁止されています'
+                    },
+                    { 
+                        regex: /この症状\s*(は|って)?\s*何の病気|病名\s*(を)?(教えて|知りたい)|これって\s*病気/g, 
+                        name: '病気の診断依頼',
+                        detail: '症状から病名を判断することは医療行為に該当します'
+                    },
+                    { 
+                        regex: /手術\s*(すべき|するべき|の必要性|が必要|を推奨)|治療\s*(すべき|するべき|の必要性)|投薬\s*(すべき|するべき)/g, 
+                        name: '治療方針の判断依頼',
+                        detail: '治療方針の決定は医療従事者が行うべき判断です'
+                    }
                 ],
                 guidelineRef: 'ガイドライン3条(3)',
-                description: '診療判断の自動化は禁止されています。',
-                suggestion: 'AIは参考情報の提供にとどめ、最終的な診療判断は必ず医療従事者が行ってください。',
-                reason: '診断や治療方針の決定をAIに委ねる表現が検出されました。医療行為における最終判断は必ず医療従事者が行う必要があり、AIへの判断の委譲は医療安全上のリスクがあります。'
+                reason: '生成AIによる診療判断の自動化は明確に禁止されています。診断、治療方針決定、処方判断などの医療行為は、必ず医療従事者の専門的判断に基づいて行われなければなりません。',
+                description: 'AIに診療判断を委ねようとする表現が検出されました。',
+                suggestion: 'AIは医学知識の参考情報提供や学習支援にのみ使用してください。診断・治療・処方などの最終判断は必ず医療従事者(医師・歯科医師)が行ってください。AIの出力を鵜呑みにせず、必ず専門的知識と経験に基づいて判断してください。'
+            },
+            {
+                category: '成績・評価データの不適切な取り扱い(歯学部)',
+                severity: 'danger',
+                patterns: [
+                    { 
+                        regex: /(成績|評価|点数|得点|順位)\s*(データ|ファイル|表|リスト|一覧)\s*(を)?\s*(添付|アップロード|送信|入力)/gi, 
+                        name: '成績データの添付・送信',
+                        detail: '個人名を含む成績データの添付は個人情報の入力に該当します'
+                    },
+                    { 
+                        regex: /(以下|添付|別紙|このファイル|この表)\s*(の)?\s*(成績|評価|点数|得点)\s*(を)?\s*(もとに|基に|参考に|分析|解析)/gi, 
+                        name: '成績データに基づく分析依頼',
+                        detail: '個人情報を含むデータを前提とした処理依頼の可能性があります'
+                    },
+                    { 
+                        regex: /(学生|生徒|受講者|履修者)\s*(の)?\s*(成績|評価|点数)\s*(と)?\s*(名前|氏名|個人名|学籍番号)\s*(付き|入り|あり|含む)/gi, 
+                        name: '個人識別情報付き成績データ',
+                        detail: '氏名や学籍番号と紐づいた成績データは個人情報です'
+                    },
+                    { 
+                        regex: /(実習|臨床実習|基礎実習|臨床|OSCE)\s*(評価|成績|記録|レポート|日誌)\s*(を)?\s*(添付|送信|入力|もとに)/gi, 
+                        name: '実習評価・記録の入力',
+                        detail: '実習評価には学生の個人情報や患者情報が含まれる可能性があります'
+                    },
+                    { 
+                        regex: /(技能試験|実技試験|OSCE|CBT)\s*(の)?\s*(評価|採点|結果|スコア)\s*(表|シート|データ)/gi, 
+                        name: '試験評価データ',
+                        detail: '試験評価データに個人名が含まれている可能性があります'
+                    },
+                    { 
+                        regex: /(ポートフォリオ|実習記録|症例数|経験症例|治療実績)\s*(を)?\s*(添付|送信|分析|集計)/gi, 
+                        name: '個人の学習記録・実績',
+                        detail: '学習記録や症例数は個人の学習履歴として保護されます'
+                    }
+                ],
+                guidelineRef: 'ガイドライン5条(4)、3条(1)',
+                reason: '成績データに学生の氏名や学籍番号が含まれている場合、それは個人情報であり、本人の同意なしに生成AIへ入力することは禁止されています。歯学部特有の実習評価表・OSCE評価シート・臨床実習記録なども同様に、学生個人や患者の情報が含まれる場合は入力禁止です。「個人名も含む」と明記されている場合は特に重大な違反です。たとえファイル添付の形であっても、個人情報の入力に該当します。',
+                description: '個人識別情報を含む成績・評価データ(実習記録を含む)の入力・添付が示唆されています。',
+                suggestion: '成績データ・実習評価表を使用する場合は、事前に必ず個人名・学籍番号などの個人識別情報を完全に削除してください。OSCE評価シート・臨床実習記録・ポートフォリオなども同様に匿名化が必要です。匿名化されたデータ(例: 学生A、学生B、ID1、ID2など)のみを使用してください。「個人名も含む」という状態でのデータ入力は絶対に避けてください。'
             },
             {
                 category: '教育上の不適切利用',
                 severity: 'warning',
                 patterns: [
-                    { regex: /試験.*解答.*作成|レポート.*代わり.*書|課題.*丸写し/g, name: '学術不正の可能性' },
-                    { regex: /成績.*改ざん|評価.*変更.*方法/g, name: '成績操作' }
+                    { 
+                        regex: /試験\s*(の)?(解答|答え)|レポート\s*(を)?(代わり|代筆|書いて)|課題\s*(を)?(代わり|丸写し|そのまま)/g, 
+                        name: '学術不正の可能性',
+                        detail: 'AIに課題を代行させることは学術不正に該当します'
+                    },
+                    { 
+                        regex: /成績\s*(を)?(改ざん|変更|修正)|評価\s*(を)?(変更|修正|上げて)/g, 
+                        name: '成績評価の操作',
+                        detail: '成績や評価を不正に操作しようとしています'
+                    },
+                    { 
+                        regex: /卒論|卒業論文|修士論文|博士論文\s*(を)?(書いて|作成|代筆)/g, 
+                        name: '学位論文の代筆依頼',
+                        detail: '学位論文をAIに書かせることは重大な学術不正です'
+                    }
                 ],
                 guidelineRef: 'ガイドライン3条(6)',
-                description: '教育上不適切な利用の可能性があります。',
-                suggestion: 'AIは学習支援ツールとして使用し、最終的な成果物は自身で作成してください。',
-                reason: '学術不正や成績操作につながる可能性のある表現が検出されました。これらは教育の公正性を損なう行為です。'
+                reason: 'AIに課題や試験の解答を全面的に代行させることは教育上不適切であり、学術不正に該当する可能性があります。学生自身の学習成果として提出すべきものをAIに依存することは禁止されています。',
+                description: '教育上不適切な利用の可能性が検出されました。',
+                suggestion: 'AIは学習支援ツール(アイデア出し、構成案の検討、表現の改善など)として活用し、最終的な成果物は必ず自分自身で作成してください。課題・レポート・論文などでAI利用が認められる範囲を担当教員に確認してください。'
+            },
+            {
+                category: '虚偽情報・名誉毀損',
+                severity: 'warning',
+                patterns: [
+                    { 
+                        regex: /[ぁ-ん一-龯]{2,4}[さん氏]\s*(の)?(スキャンダル|不祥事|問題|批判|悪評|噂)/g, 
+                        name: '個人の評判に関する情報',
+                        detail: '虚偽の個人情報や名誉毀損につながる可能性があります'
+                    },
+                    { 
+                        regex: /捏造|でっち上げ|嘘の|偽の|虚偽の\s*(情報|記事|ニュース|レポート)/g, 
+                        name: '虚偽情報の作成依頼',
+                        detail: '意図的に虚偽情報を生成しようとしています'
+                    }
+                ],
+                guidelineRef: 'ガイドライン6条(2)③',
+                reason: '生成AIは個人に関する虚偽情報を生成する可能性があります。虚偽の個人情報を生成・利用・提供する行為は、個人情報保護法違反や名誉毀損・信用毀損に該当する可能性があります。',
+                description: '虚偽情報の生成や名誉毀損につながる可能性のある表現です。',
+                suggestion: '特定個人に関する評判・評価・批判的情報の生成は避けてください。AIが生成した人物情報は必ず事実確認を行ってください。虚偽情報の拡散は法的責任を問われる可能性があります。'
             }
         ];
 
@@ -480,239 +929,210 @@
             const input = document.getElementById('userInput').value;
             const resultSection = document.getElementById('resultSection');
             const resultHeader = document.getElementById('resultHeader');
-            const judgmentReason = document.getElementById('judgmentReason');
             const issuesContainer = document.getElementById('issuesContainer');
             const recommendationContainer = document.getElementById('recommendationContainer');
+            const loading = document.getElementById('loading');
+            const checkButton = document.getElementById('checkButton');
             
             // 入力チェック
             if (!input.trim()) {
-                alert('チェックする内容を入力してください。');
+                alert('⚠️ チェックする内容を入力してください。');
                 return;
             }
             
-            // 統計情報
-            document.getElementById('charCount').textContent = input.length;
+            // ローディング表示
+            loading.style.display = 'block';
+            checkButton.disabled = true;
+            resultSection.style.display = 'none';
             
-            // 問題検出
-            const detectedIssues = [];
-            let highestSeverity = 'safe';
-            
-            checkRules.forEach(rule => {
-                const matches = [];
-                rule.patterns.forEach(pattern => {
-                    const found = input.match(pattern.regex);
-                    if (found) {
-                        matches.push({
-                            type: pattern.name,
-                            count: found.length,
-                            examples: found.slice(0, 3) // 最大3つの例を表示
+            // 処理をシミュレート(実際はブラウザ内で即座に完了)
+            setTimeout(() => {
+                // 統計情報
+                document.getElementById('charCount').textContent = input.length.toLocaleString();
+                
+                // 問題検出
+                const detectedIssues = [];
+                let highestSeverity = 'safe';
+                
+                checkRules.forEach(rule => {
+                    const matches = [];
+                    rule.patterns.forEach(pattern => {
+                        const found = input.match(pattern.regex);
+                        if (found) {
+                            matches.push({
+                                type: pattern.name,
+                                detail: pattern.detail,
+                                count: found.length,
+                                examples: [...new Set(found)].slice(0, 5) // 重複削除して最大5つ
+                            });
+                        }
+                    });
+                    
+                    if (matches.length > 0) {
+                        detectedIssues.push({
+                            category: rule.category,
+                            severity: rule.severity,
+                            matches: matches,
+                            guidelineRef: rule.guidelineRef,
+                            reason: rule.reason,
+                            description: rule.description,
+                            suggestion: rule.suggestion
                         });
+                        
+                        if (rule.severity === 'danger') {
+                            highestSeverity = 'danger';
+                        } else if (rule.severity === 'warning' && highestSeverity !== 'danger') {
+                            highestSeverity = 'warning';
+                        }
                     }
                 });
                 
-                if (matches.length > 0) {
-                    detectedIssues.push({
-                        category: rule.category,
-                        severity: rule.severity,
-                        matches: matches,
-                        guidelineRef: rule.guidelineRef,
-                        description: rule.description,
-                        suggestion: rule.suggestion,
-                        reason: rule.reason
-                    });
-                    
-                    if (rule.severity === 'danger') {
-                        highestSeverity = 'danger';
-                    } else if (rule.severity === 'warning' && highestSeverity !== 'danger') {
-                        highestSeverity = 'warning';
-                    }
+                // 結果表示
+                document.getElementById('issueCount').textContent = detectedIssues.length;
+                
+                // リスクレベル表示
+                const riskLevelElement = document.getElementById('riskLevel');
+                if (highestSeverity === 'danger') {
+                    riskLevelElement.textContent = '❌ 高';
+                    riskLevelElement.style.color = '#dc3545';
+                    resultHeader.className = 'result-header result-danger';
+                    resultHeader.innerHTML = '❌ <strong>使用不可</strong>: 重大な問題が検出されました';
+                } else if (highestSeverity === 'warning') {
+                    riskLevelElement.textContent = '⚠️ 中';
+                    riskLevelElement.style.color = '#ffc107';
+                    resultHeader.className = 'result-header result-warning';
+                    resultHeader.innerHTML = '⚠️ <strong>要注意</strong>: 修正を推奨します';
+                } else {
+                    riskLevelElement.textContent = '✅ 低';
+                    riskLevelElement.style.color = '#28a745';
+                    resultHeader.className = 'result-header result-safe';
+                    resultHeader.innerHTML = '✅ <strong>問題なし</strong>: 安全に使用できます';
                 }
-            });
-            
-            // 結果表示
-            document.getElementById('issueCount').textContent = detectedIssues.length;
-            
-            // 総合判定理由の生成
-            let overallReason = '';
-            
-            if (highestSeverity === 'danger') {
-                document.getElementById('riskLevel').textContent = '高';
-                document.getElementById('riskLevel').style.color = '#dc3545';
-                resultHeader.className = 'result-header result-danger';
-                resultHeader.innerHTML = '❌ 使用不可: 重大な問題が検出されました';
                 
-                overallReason = `
-                    <div class="result-details">
-                        <h3>🔍 総合判定理由</h3>
-                        <div class="reason-box" style="background: #ffebee; border-left-color: #d32f2f;">
-                            <h4 style="color: #c62828;">❌ 使用不可と判定した理由</h4>
-                            <p>以下の重大な問題が検出されたため、現状では生成AIへの入力は推奨できません:</p>
-                            <ul>
-                                ${detectedIssues.filter(i => i.severity === 'danger').map(i => 
-                                    `<li><strong>${i.category}</strong>が検出されました</li>`
-                                ).join('')}
-                            </ul>
-                            <p style="margin-top: 10px;">これらの情報を生成AIに入力することは、<strong>個人情報保護法違反、契約違反、医療安全上のリスク</strong>などにつながる可能性があります。</p>
-                        </div>
-                    </div>
-                `;
-            } else if (highestSeverity === 'warning') {
-                document.getElementById('riskLevel').textContent = '中';
-                document.getElementById('riskLevel').style.color = '#ffc107';
-                resultHeader.className = 'result-header result-warning';
-                resultHeader.innerHTML = '⚠️ 要注意: 修正が推奨されます';
-                
-                overallReason = `
-                    <div class="result-details">
-                        <h3>🔍 総合判定理由</h3>
-                        <div class="reason-box" style="background: #fff8e1; border-left-color: #ffa000;">
-                            <h4 style="color: #f57c00;">⚠️ 要注意と判定した理由</h4>
-                            <p>以下の注意が必要な項目が検出されました:</p>
-                            <ul>
-                                ${detectedIssues.map(i => 
-                                    `<li><strong>${i.category}</strong>: ${i.matches.length}件の該当項目</li>`
-                                ).join('')}
-                            </ul>
-                            <p style="margin-top: 10px;">これらの問題を修正することで、より安全に生成AIを利用できます。特に<strong>生成物を公開・配信する場合は、著作権や商標権の確認が必須</strong>です。</p>
-                        </div>
-                    </div>
-                `;
-            } else {
-                document.getElementById('riskLevel').textContent = '低';
-                document.getElementById('riskLevel').style.color = '#28a745';
-                resultHeader.className = 'result-header result-safe';
-                resultHeader.innerHTML = '✅ 使用可能: 明らかな問題は検出されませんでした';
-                
-                overallReason = `
-                    <div class="result-details">
-                        <h3>🔍 総合判定理由</h3>
-                        <div class="reason-box">
-                            <h4>✅ 使用可能と判定した理由</h4>
-                            <p>入力内容を分析した結果、以下の理由により使用可能と判定されました:</p>
-                            <ul>
-                                <li><strong>特定個人を識別できる情報が含まれていません</strong> - 「全学生」「ある科目」など一般化された表現のみです</li>
-                                <li><strong>機密情報や秘密指定された情報がありません</strong> - 公開可能な範囲の情報と判断されます</li>
-                                <li><strong>特定の著作物や作家の模倣依頼がありません</strong> - オリジナルな生成が期待できます</li>
-                                <li><strong>診療判断の自動化に該当しません</strong> - 教育目的での適切な利用です</li>
-                            </ul>
-                            <p style="margin-top: 10px; color: #d84315;"><strong>⚠️ ただし以下の点にご注意ください:</strong></p>
-                            <ul style="color: #555;">
-                                <li>実際に成績データを添付する際は、<strong>学生の氏名や学籍番号を削除</strong>してください</li>
-                                <li>生成された問題に虚偽の内容が含まれる可能性があります(必ず確認してください)</li>
-                                <li>生成物が既存の問題集と類似する可能性があります(公開前に確認してください)</li>
-                                <li>生成物をそのまま使用せず、必ず教員自身で内容を確認・修正してください</li>
-                            </ul>
-                        </div>
-                    </div>
-                `;
-            }
-            
-            judgmentReason.innerHTML = overallReason;
-            
-            // 問題詳細の表示
-            issuesContainer.innerHTML = '';
-            if (detectedIssues.length > 0) {
-                const issuesDiv = document.createElement('div');
-                issuesDiv.className = 'result-details';
-                issuesDiv.innerHTML = '<h3>⚠️ 検出された具体的な問題</h3>';
-                
-                detectedIssues.forEach(issue => {
-                    const issueDiv = document.createElement('div');
-                    issueDiv.className = 'issue-item';
+                // 問題詳細の表示
+                issuesContainer.innerHTML = '';
+                if (detectedIssues.length > 0) {
+                    const issuesDiv = document.createElement('div');
+                    issuesDiv.className = 'result-details';
+                    issuesDiv.innerHTML = '<h3><span class="icon">🔍</span>検出された問題の詳細</h3>';
                     
-                    let matchDetails = '';
-                    issue.matches.forEach(match => {
-                        matchDetails += `<p><strong>${match.type}</strong>: ${match.count}件検出`;
-                        if (match.examples.length > 0) {
-                            matchDetails += ` (例: ${match.examples.map(e => `"${e}"`).join(', ')})`;
-                        }
-                        matchDetails += '</p>';
+                    detectedIssues.forEach((issue, index) => {
+                        const issueDiv = document.createElement('div');
+                        issueDiv.className = issue.severity === 'warning' ? 'issue-item warning' : 'issue-item';
+                        
+                        let matchDetails = '';
+                        issue.matches.forEach(match => {
+                            const examplesHtml = match.examples.map(e => 
+                                `<span class="match-example">${e.substring(0, 30)}${e.length > 30 ? '...' : ''}</span>`
+                            ).join('');
+                            
+                            matchDetails += `
+                                <div class="match-details">
+                                    <strong>${match.type}</strong>: ${match.count}件検出
+                                    <p style="font-size: 13px; color: #666; margin-top: 4px;">${match.detail}</p>
+                                    ${match.examples.length > 0 ? `<div class="match-examples">${examplesHtml}</div>` : ''}
+                                </div>
+                            `;
+                        });
+                        
+                        const iconMap = {
+                            'danger': '🚫',
+                            'warning': '⚠️'
+                        };
+                        
+                        issueDiv.innerHTML = `
+                            <h4><span class="icon">${iconMap[issue.severity]}</span>${issue.category}</h4>
+                            <p style="margin-bottom: 15px;">${issue.description}</p>
+                            ${matchDetails}
+                            <div class="reason-section">
+                                <h5><span class="icon">📖</span>判定理由</h5>
+                                <p>${issue.reason}</p>
+                            </div>
+                            <span class="guideline-ref">📋 ${issue.guidelineRef}</span>
+                            <div class="suggestion">
+                                <h4><span class="icon">💡</span>改善提案</h4>
+                                <p>${issue.suggestion}</p>
+                            </div>
+                        `;
+                        issuesDiv.appendChild(issueDiv);
                     });
                     
-                    issueDiv.innerHTML = `
-                        <h4>⚠️ ${issue.category}</h4>
-                        ${matchDetails}
-                        <p>${issue.description}</p>
-                        <span class="guideline-ref">${issue.guidelineRef}</span>
-                        <div class="issue-reason">
-                            <h5>📌 この判定の理由</h5>
-                            <p>${issue.reason}</p>
-                        </div>
-                        <div class="suggestion">
-                            <h4>💡 改善提案</h4>
-                            <p>${issue.suggestion}</p>
+                    issuesContainer.appendChild(issuesDiv);
+                }
+                
+                // 総合的な推奨事項
+                recommendationContainer.innerHTML = '';
+                const recDiv = document.createElement('div');
+                recDiv.className = 'result-details';
+                recDiv.innerHTML = '<h3><span class="icon">📌</span>総合的な推奨事項</h3>';
+                
+                if (highestSeverity === 'danger') {
+                    recDiv.innerHTML += `
+                        <div class="issue-item">
+                            <h4><span class="icon">🚫</span>この内容は現状では使用できません</h4>
+                            <p>上記で検出された<strong>重大な問題を必ず修正</strong>してから再度チェックしてください。</p>
+                            <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.9;">
+                                <li><strong>個人情報:</strong> 氏名・住所・電話番号・メールアドレス・識別番号などは削除または仮名化</li>
+                                <li><strong>患者情報:</strong> 実在の患者データは入力禁止。教育用には完全な架空症例を使用</li>
+                                <li><strong>機密情報:</strong> NDA対象情報、パスワード、内部資料などは絶対に入力しない</li>
+                                <li><strong>診療判断:</strong> AIに診断・治療方針決定を委ねず、参考情報としてのみ利用</li>
+                            </ul>
                         </div>
                     `;
-                    issuesDiv.appendChild(issueDiv);
-                });
+                } else if (highestSeverity === 'warning') {
+                    recDiv.innerHTML += `
+                        <div class="suggestion">
+                            <h4><span class="icon">⚠️</span>修正後の使用を推奨します</h4>
+                            <p>検出された問題を確認し、可能な限り修正してから使用してください。</p>
+                            <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.9;">
+                                <li><strong>著作権:</strong> 特定の作家名・作品名を避け、一般的な表現スタイルを指定</li>
+                                <li><strong>商標:</strong> 生成物を商用利用する場合は特許庁DBで類似性を事前調査</li>
+                                <li><strong>学術利用:</strong> AIは学習支援ツールとして活用し、成果物は自身で作成</li>
+                                <li><strong>生成物の確認:</strong> 公開・配信前に既存著作物との類似性を必ずチェック</li>
+                            </ul>
+                        </div>
+                    `;
+                } else {
+                    recDiv.innerHTML += `
+                        <div class="suggestion">
+                            <h4><span class="icon">✅</span>安全に使用できます</h4>
+                            <p>明らかな問題は検出されませんでしたが、以下の<strong>一般的な注意事項</strong>をご確認ください:</p>
+                            <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.9;">
+                                <li><strong>生成物の虚偽(ハルシネーション):</strong> 内容に誤りや虚偽が含まれる可能性があります。重要な情報は必ず根拠・裏付けを確認してください(ガイドライン6条(1))</li>
+                                <li><strong>著作権リスク:</strong> 生成物が既存著作物と偶然類似する可能性があります。公開・配信する場合は類似性を調査してください(ガイドライン6条(2)①)</li>
+                                <li><strong>商標・意匠リスク:</strong> ロゴ・デザイン・キャッチコピーを商用利用する場合は登録商標・意匠との類似性を調査してください(ガイドライン6条(2)②)</li>
+                                <li><strong>診療・教育判断:</strong> AIの出力を鵜呑みにせず、診療判断や教育判断には必ず人間の最終確認・専門的判断が必要です</li>
+                                <li><strong>生成物の著作権:</strong> AIが生成した内容に著作権が発生しない可能性があります。可能な限り加筆・修正を行ってください(ガイドライン6条(3))</li>
+                            </ul>
+                            <p style="margin-top: 15px; padding: 12px; background: #fff8e1; border-radius: 8px; border-left: 4px solid #ffc107;">
+                                <strong>💡 推奨:</strong> 生成AIは「作業効率化」と「アイデア発想支援」のツールとして活用し、最終的な判断・確認・責任は必ず人間が担うという原則を守ってください。
+                            </p>
+                        </div>
+                    `;
+                }
                 
-                issuesContainer.appendChild(issuesDiv);
-            }
-            
-            // 総合的な推奨事項
-            recommendationContainer.innerHTML = '';
-            const recDiv = document.createElement('div');
-            recDiv.className = 'result-details';
-            recDiv.innerHTML = '<h3>📌 総合的な推奨事項</h3>';
-            
-            if (highestSeverity === 'danger') {
-                recDiv.innerHTML += `
-                    <div class="issue-item">
-                        <h4>🚫 この内容は現状では使用できません</h4>
-                        <p>検出された問題を修正してから再度チェックしてください。特に以下の対応が必須です:</p>
-                        <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
-                            <li><strong>個人情報</strong>: 氏名、学籍番号、連絡先などは完全に削除または「学生A」などに置き換え</li>
-                            <li><strong>患者情報</strong>: 完全に匿名化するか、架空の症例として一般化</li>
-                            <li><strong>機密情報</strong>: 秘密指定された情報や契約で保護された情報は削除</li>
-                            <li><strong>診療判断</strong>: 診断や治療方針の決定をAIに委ねる表現は削除</li>
-                        </ul>
-                    </div>
-                `;
-            } else if (highestSeverity === 'warning') {
-                recDiv.innerHTML += `
-                    <div class="suggestion">
-                        <h4>⚠️ 修正後の使用を推奨します</h4>
-                        <p>検出された問題を確認し、可能な限り修正してください:</p>
-                        <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
-                            <li><strong>著作権</strong>: 特定の作家名や作品名は削除し、一般的な表現に変更</li>
-                            <li><strong>商標</strong>: 既存ブランド名は削除し、「大手メーカー風」などに変更</li>
-                            <li><strong>生成物の利用</strong>: 公開・配信前に必ず類似性の確認を実施</li>
-                        </ul>
-                    </div>
-                `;
-            } else {
-                recDiv.innerHTML += `
-                    <div class="suggestion">
-                        <h4>✅ 使用可能ですが、以下の点に注意してください</h4>
-                        <p><strong>「ある科目の全学生の成績を添付」</strong>という表現自体は問題ありませんが、実際にファイルを添付する際は:</p>
-                        <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
-                            <li><strong>学生の氏名や学籍番号は必ず削除</strong>してください(「学生1」「学生2」などに置き換え)</li>
-                            <li>成績データのみ(点数や評価)であれば個人情報に該当しない可能性が高いです</li>
-                            <li>ただし、成績と個人が紐づく情報(出席番号など)があれば削除が必要です</li>
-                        </ul>
-                        <p style="margin-top: 15px;"><strong>生成AIの一般的な注意事項:</strong></p>
-                        <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
-                            <li>生成された内容に虚偽が含まれる可能性があります(ガイドライン6条(1))</li>
-                            <li>生成物が既存の著作物と類似する可能性があります(ガイドライン6条(2))</li>
-                            <li>生成物を公開・配信する場合は著作権の確認をしてください</li>
-                            <li>生成物はあくまで参考とし、必ず人間が最終確認を行ってください</li>
-                        </ul>
-                    </div>
-                `;
-            }
-            
-            recommendationContainer.appendChild(recDiv);
-            
-            // 結果セクションを表示
-            resultSection.style.display = 'block';
-            resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                recommendationContainer.appendChild(recDiv);
+                
+                // ローディング非表示、結果表示
+                loading.style.display = 'none';
+                checkButton.disabled = false;
+                resultSection.style.display = 'block';
+                resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 600); // 処理感を出すための短い遅延
         }
         
-        // Enterキーでの送信を防止(Ctrl+Enterで実行)
+        // Ctrl+Enter でチェック実行
         document.getElementById('userInput').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && e.ctrlKey) {
+            if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
                 performCheck();
             }
+        });
+        
+        // ページ読み込み時のヒント表示
+        window.addEventListener('load', function() {
+            console.log('🤖 生成AI使用セルフチェック支援ツール v1.1');
+            console.log('📖 ガイドライン第1.1版準拠');
+            console.log('🔒 全ての処理はブラウザ内で完結します');
         });
     </script>
 </body>
