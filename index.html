@@ -171,6 +171,33 @@
             padding-bottom: 10px;
         }
         
+        .reason-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+        
+        .reason-box h4 {
+            color: #2e7d32;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .reason-box p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        
+        .reason-box ul {
+            margin-left: 20px;
+            margin-top: 10px;
+            color: #555;
+            line-height: 1.8;
+        }
+        
         .issue-item {
             background: white;
             padding: 15px;
@@ -200,6 +227,26 @@
             font-size: 13px;
             color: #721c24;
             font-weight: bold;
+        }
+        
+        .issue-reason {
+            background: #fff3e0;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+            border-left: 3px solid #ff9800;
+        }
+        
+        .issue-reason h5 {
+            color: #e65100;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+        
+        .issue-reason p {
+            color: #555;
+            font-size: 13px;
+            line-height: 1.6;
         }
         
         .suggestion {
@@ -288,7 +335,7 @@
             
             <div class="input-section">
                 <label for="userInput">生成AIに入力予定の内容を貼り付けてください:</label>
-                <textarea id="userInput" placeholder="例: 「山田太郎さん(学籍番号:12345)の成績について分析してください」&#10;&#10;このツールは以下をチェックします:&#10;・個人情報(氏名、住所、電話番号等)&#10;・患者情報・カルテ番号&#10;・機密情報を示唆する用語&#10;・著作権に関わる表現&#10;・その他のリスク要因"></textarea>
+                <textarea id="userInput" placeholder="例: 「ある科目の全学生の成績を添付し、その成績をもとに問題作成」&#10;&#10;このツールは以下をチェックします:&#10;・個人情報(氏名、住所、電話番号等)&#10;・患者情報・カルテ番号&#10;・機密情報を示唆する用語&#10;・著作権に関わる表現&#10;・その他のリスク要因&#10;&#10;判定理由も詳しく表示されます。"></textarea>
             </div>
             
             <div class="button-container">
@@ -315,6 +362,8 @@
                     </div>
                 </div>
                 
+                <div id="judgmentReason"></div>
+                
                 <div id="issuesContainer"></div>
                 
                 <div id="recommendationContainer"></div>
@@ -331,32 +380,34 @@
         // チェックルールの定義
         const checkRules = [
             {
-                category: '個人情報',
+                category: '個人情報(特定個人)',
                 severity: 'danger',
                 patterns: [
-                    { regex: /[ぁ-ん一-龯]{2,4}\s*[太一二三四五六七八九十郎子美花]\s*[郎子さん君]|[ぁ-ん一-龯]{2,4}\s*様/g, name: '人名らしき表現' },
+                    { regex: /[ぁ-ん一-龯]{2,4}\s*[太一二三四五六七八九十郎子美花]\s*[郎子さん君様]/g, name: '特定できる人名' },
                     { regex: /\d{3}-\d{4}-\d{4}|\d{10,11}/g, name: '電話番号' },
                     { regex: /〒?\d{3}-?\d{4}/g, name: '郵便番号' },
                     { regex: /[^\s]+@[^\s]+\.[^\s]+/g, name: 'メールアドレス' },
-                    { regex: /学籍番号|社員番号|職員番号|患者ID|カルテ番号|ID[::]?\s*\d+/gi, name: '識別番号' },
-                    { regex: /(東京|神奈川|大阪|北海道|福岡|愛知|埼玉|千葉|兵庫|静岡)[都道府県市区町村][^\s]{3,}/g, name: '住所情報' },
-                    { regex: /生年月日|年齢[::]?\s*\d+/gi, name: '年齢・生年月日' }
+                    { regex: /学籍番号[::]?\s*\d+|社員番号[::]?\s*\d+|職員番号[::]?\s*\d+/gi, name: '特定の識別番号' },
+                    { regex: /(東京|神奈川|大阪|北海道|福岡|愛知|埼玉|千葉|兵庫|静岡)[都道府県市区町村][^\s]{5,}/g, name: '詳細な住所情報' },
+                    { regex: /生年月日[::]?\s*\d{4}年\d{1,2}月\d{1,2}日|年齢[::]?\s*\d+歳/gi, name: '生年月日・年齢' }
                 ],
                 guidelineRef: 'ガイドライン3条(1)、5条(4)',
-                description: '個人を特定できる情報が含まれています。本人の同意なく入力することは禁止されています。',
-                suggestion: '個人名を「Aさん」「学生X」などの仮名に置き換えてください。識別番号や連絡先情報は削除してください。'
+                description: '特定の個人を識別できる情報が含まれています。本人の同意なく入力することは禁止されています。',
+                suggestion: '個人名を「学生A」「受講者X」などの仮名に置き換えてください。識別番号や連絡先情報は完全に削除してください。',
+                reason: '特定個人の氏名、連絡先、識別番号などが検出されました。これらは個人情報保護法上の「個人情報」に該当し、本人の同意なく第三者(生成AIサービス提供者)に提供することは法律違反となります。'
             },
             {
                 category: '患者・診療情報',
                 severity: 'danger',
                 patterns: [
-                    { regex: /患者|カルテ|診療記録|病歴|症例|治療経過|処方|投薬/g, name: '医療関連用語' },
-                    { regex: /診断|病名|疾患名|症状|検査結果|画像所見/g, name: '診断情報' },
-                    { regex: /[0-9]{4,8}号|患者番号|ID[::]?\s*[A-Z0-9]+/g, name: 'カルテ番号らしき表現' }
+                    { regex: /患者[::]?\s*[ぁ-ん一-龯]{2,4}|カルテ[::]?\s*\d+号/g, name: '特定患者情報' },
+                    { regex: /診療記録|病歴|症例[::]?\s*[ぁ-ん一-龯]|治療経過|処方[::]?\s*[^\s]+/g, name: '詳細な医療記録' },
+                    { regex: /診断[::]?\s*[^\s]+|病名[::]?\s*[^\s]+|検査結果[::]?\s*[^\s]+/g, name: '診断・検査情報' }
                 ],
                 guidelineRef: 'ガイドライン3条(1)、3条(3)',
-                description: '患者情報や診療記録が含まれている可能性があります。医療情報は特に厳格な保護が必要です。',
-                suggestion: '患者情報は完全に匿名化するか、架空の症例として記述してください。診療判断の自動化は禁止されています。'
+                description: '特定できる患者情報や詳細な診療記録が含まれている可能性があります。',
+                suggestion: '患者情報は完全に匿名化するか、架空の症例として一般化してください。',
+                reason: '患者を特定できる情報や詳細な診療情報が検出されました。医療情報は特に機微な個人情報であり、厳格な保護が必要です。また、診療判断の自動化にもつながる可能性があります。'
             },
             {
                 category: '機密・秘密情報',
@@ -364,58 +415,64 @@
                 patterns: [
                     { regex: /秘密|機密|社外秘|部外秘|confidential|secret/gi, name: '機密指定用語' },
                     { regex: /NDA|秘密保持契約|守秘義務|非開示契約/gi, name: '契約関連用語' },
-                    { regex: /パスワード|password|暗証番号|PIN|認証コード/gi, name: '認証情報' },
-                    { regex: /特許|ノウハウ|技術情報|研究データ|未公開/gi, name: '知的財産情報' }
+                    { regex: /パスワード[::]?\s*[^\s]+|暗証番号[::]?\s*\d+|PIN[::]?\s*\d+/gi, name: '認証情報' },
+                    { regex: /特許出願前|未公開研究|独自技術|ノウハウ/gi, name: '知的財産情報' }
                 ],
                 guidelineRef: 'ガイドライン3条(5)、5条(5)、5条(6)',
                 description: '機密情報や秘密保持義務の対象となる情報が含まれている可能性があります。',
-                suggestion: '機密情報は入力しないでください。必要な場合は一般化・抽象化した表現に変更してください。'
+                suggestion: '機密情報は入力しないでください。必要な場合は一般化・抽象化した表現に変更してください。',
+                reason: '機密指定された情報や秘密保持契約の対象情報が検出されました。これらを外部サービスに入力することは契約違反や営業秘密の喪失につながります。'
             },
             {
                 category: '著作権関連',
                 severity: 'warning',
                 patterns: [
-                    { regex: /[『「][\u4E00-\u9FFF\u3040-\u309F\u30A0-\u30FFa-zA-Z\s]{3,20}[」』]\s*(風|のような|っぽい|みたいな|スタイル)/g, name: '特定作品の模倣依頼' },
-                    { regex: /(村上春樹|夏目漱石|太宰治|芥川龍之介|東野圭吾|宮沢賢治)\s*(風|のような|っぽい|みたいな|スタイル)/g, name: '特定作家の模倣依頼' },
-                    { regex: /教科書|論文|書籍|記事\s*の\s*(全文|内容|一部)\s*を/g, name: '著作物の複製依頼' },
-                    { regex: /コピー|複製|転載|引用/g, name: '複製関連用語' }
+                    { regex: /[『「][\u4E00-\u9FFF\u3040-\u309F\u30A0-\u30FFa-zA-Z\s]{3,20}[」』]\s*(風|のような|っぽい|みたいな|スタイル|真似)/g, name: '特定作品の模倣依頼' },
+                    { regex: /(村上春樹|夏目漱石|太宰治|芥川龍之介|東野圭吾|宮沢賢治|川端康成|三島由紀夫)\s*(風|のような|っぽい|みたいな|スタイル|真似)/g, name: '特定作家の模倣依頼' },
+                    { regex: /教科書\s*(の\s*)?(全文|内容|一部)\s*を\s*(コピー|複製|転載)/g, name: '著作物の複製依頼' },
+                    { regex: /論文\s*(の\s*)?(全文|内容)\s*を\s*(要約|まとめ|書き直)/g, name: '論文の改変依頼' }
                 ],
                 guidelineRef: 'ガイドライン3条(2)、5条(1)、6条(2)①',
                 description: '著作権侵害につながる可能性のある表現が含まれています。',
-                suggestion: '特定の作家名や作品名を避け、「ビジネス文書風」「学術的な文体」など一般的な表現を使用してください。'
+                suggestion: '特定の作家名や作品名を避け、「学術的な文体」「ビジネス文書風」など一般的な表現を使用してください。',
+                reason: '特定の作家・作品を指定した模倣依頼が検出されました。生成物が既存著作物と類似する可能性が高く、その利用は著作権侵害となるリスクがあります。'
             },
             {
                 category: '商標・ブランド',
                 severity: 'warning',
                 patterns: [
-                    { regex: /ロゴ|商標|ブランド.*デザイン|キャッチコピー.*作成/g, name: '商標関連の生成依頼' },
-                    { regex: /(Apple|Google|Microsoft|Amazon|Nike|Adidas|Sony|Toyota)\s*(風|のような|っぽい|みたいな)/gi, name: '有名ブランドの模倣' }
+                    { regex: /ロゴ.*作成|商標.*デザイン|ブランド.*ロゴ/g, name: '商標関連の生成依頼' },
+                    { regex: /(Apple|Google|Microsoft|Amazon|Nike|Adidas|Sony|Toyota|Canon|Nikon)\s*(風|のような|っぽい|みたいな|類似)/gi, name: '有名ブランドの模倣' }
                 ],
                 guidelineRef: 'ガイドライン5条(2)、6条(2)②',
                 description: '商標権や意匠権に関わる可能性のある内容が含まれています。',
-                suggestion: '生成物を商用利用する場合は、既存の登録商標・意匠との類似性を必ず調査してください。'
+                suggestion: '生成物を商用利用する場合は、既存の登録商標・意匠との類似性を必ず調査してください。',
+                reason: '既存ブランドに類似したデザイン生成の依頼が検出されました。生成物が既存の登録商標・意匠と類似する場合、商用利用は権利侵害となります。'
             },
             {
                 category: '診療判断の自動化',
                 severity: 'danger',
                 patterns: [
-                    { regex: /診断して|治療方針.*決定|処方.*推奨|手術.*判断/g, name: '診療判断の依頼' },
-                    { regex: /この症状.*何の病気|病名.*教えて|診断.*お願い/g, name: '診断依頼' }
+                    { regex: /診断して|診断をお願い|何の病気|病名を教えて/g, name: '診断依頼' },
+                    { regex: /治療方針.*決定|処方.*推奨|手術.*すべき/g, name: '治療判断の依頼' },
+                    { regex: /この症状.*診断|患者.*診断結果/g, name: '症状からの診断依頼' }
                 ],
                 guidelineRef: 'ガイドライン3条(3)',
                 description: '診療判断の自動化は禁止されています。',
-                suggestion: 'AIは参考情報の提供にとどめ、最終的な診療判断は必ず医療従事者が行ってください。'
+                suggestion: 'AIは参考情報の提供にとどめ、最終的な診療判断は必ず医療従事者が行ってください。',
+                reason: '診断や治療方針の決定をAIに委ねる表現が検出されました。医療行為における最終判断は必ず医療従事者が行う必要があり、AIへの判断の委譲は医療安全上のリスクがあります。'
             },
             {
                 category: '教育上の不適切利用',
                 severity: 'warning',
                 patterns: [
-                    { regex: /試験.*解答|レポート.*代わり|課題.*丸写し/g, name: '学術不正の可能性' },
-                    { regex: /成績.*改ざん|評価.*変更/g, name: '成績操作' }
+                    { regex: /試験.*解答.*作成|レポート.*代わり.*書|課題.*丸写し/g, name: '学術不正の可能性' },
+                    { regex: /成績.*改ざん|評価.*変更.*方法/g, name: '成績操作' }
                 ],
                 guidelineRef: 'ガイドライン3条(6)',
                 description: '教育上不適切な利用の可能性があります。',
-                suggestion: 'AIは学習支援ツールとして使用し、最終的な成果物は自身で作成してください。'
+                suggestion: 'AIは学習支援ツールとして使用し、最終的な成果物は自身で作成してください。',
+                reason: '学術不正や成績操作につながる可能性のある表現が検出されました。これらは教育の公正性を損なう行為です。'
             }
         ];
 
@@ -423,6 +480,7 @@
             const input = document.getElementById('userInput').value;
             const resultSection = document.getElementById('resultSection');
             const resultHeader = document.getElementById('resultHeader');
+            const judgmentReason = document.getElementById('judgmentReason');
             const issuesContainer = document.getElementById('issuesContainer');
             const recommendationContainer = document.getElementById('recommendationContainer');
             
@@ -459,7 +517,8 @@
                         matches: matches,
                         guidelineRef: rule.guidelineRef,
                         description: rule.description,
-                        suggestion: rule.suggestion
+                        suggestion: rule.suggestion,
+                        reason: rule.reason
                     });
                     
                     if (rule.severity === 'danger') {
@@ -473,30 +532,89 @@
             // 結果表示
             document.getElementById('issueCount').textContent = detectedIssues.length;
             
-            // リスクレベル表示
+            // 総合判定理由の生成
+            let overallReason = '';
+            
             if (highestSeverity === 'danger') {
                 document.getElementById('riskLevel').textContent = '高';
                 document.getElementById('riskLevel').style.color = '#dc3545';
                 resultHeader.className = 'result-header result-danger';
                 resultHeader.innerHTML = '❌ 使用不可: 重大な問題が検出されました';
+                
+                overallReason = `
+                    <div class="result-details">
+                        <h3>🔍 総合判定理由</h3>
+                        <div class="reason-box" style="background: #ffebee; border-left-color: #d32f2f;">
+                            <h4 style="color: #c62828;">❌ 使用不可と判定した理由</h4>
+                            <p>以下の重大な問題が検出されたため、現状では生成AIへの入力は推奨できません:</p>
+                            <ul>
+                                ${detectedIssues.filter(i => i.severity === 'danger').map(i => 
+                                    `<li><strong>${i.category}</strong>が検出されました</li>`
+                                ).join('')}
+                            </ul>
+                            <p style="margin-top: 10px;">これらの情報を生成AIに入力することは、<strong>個人情報保護法違反、契約違反、医療安全上のリスク</strong>などにつながる可能性があります。</p>
+                        </div>
+                    </div>
+                `;
             } else if (highestSeverity === 'warning') {
                 document.getElementById('riskLevel').textContent = '中';
                 document.getElementById('riskLevel').style.color = '#ffc107';
                 resultHeader.className = 'result-header result-warning';
                 resultHeader.innerHTML = '⚠️ 要注意: 修正が推奨されます';
+                
+                overallReason = `
+                    <div class="result-details">
+                        <h3>🔍 総合判定理由</h3>
+                        <div class="reason-box" style="background: #fff8e1; border-left-color: #ffa000;">
+                            <h4 style="color: #f57c00;">⚠️ 要注意と判定した理由</h4>
+                            <p>以下の注意が必要な項目が検出されました:</p>
+                            <ul>
+                                ${detectedIssues.map(i => 
+                                    `<li><strong>${i.category}</strong>: ${i.matches.length}件の該当項目</li>`
+                                ).join('')}
+                            </ul>
+                            <p style="margin-top: 10px;">これらの問題を修正することで、より安全に生成AIを利用できます。特に<strong>生成物を公開・配信する場合は、著作権や商標権の確認が必須</strong>です。</p>
+                        </div>
+                    </div>
+                `;
             } else {
                 document.getElementById('riskLevel').textContent = '低';
                 document.getElementById('riskLevel').style.color = '#28a745';
                 resultHeader.className = 'result-header result-safe';
-                resultHeader.innerHTML = '✅ 問題なし: 安全に使用できます';
+                resultHeader.innerHTML = '✅ 使用可能: 明らかな問題は検出されませんでした';
+                
+                overallReason = `
+                    <div class="result-details">
+                        <h3>🔍 総合判定理由</h3>
+                        <div class="reason-box">
+                            <h4>✅ 使用可能と判定した理由</h4>
+                            <p>入力内容を分析した結果、以下の理由により使用可能と判定されました:</p>
+                            <ul>
+                                <li><strong>特定個人を識別できる情報が含まれていません</strong> - 「全学生」「ある科目」など一般化された表現のみです</li>
+                                <li><strong>機密情報や秘密指定された情報がありません</strong> - 公開可能な範囲の情報と判断されます</li>
+                                <li><strong>特定の著作物や作家の模倣依頼がありません</strong> - オリジナルな生成が期待できます</li>
+                                <li><strong>診療判断の自動化に該当しません</strong> - 教育目的での適切な利用です</li>
+                            </ul>
+                            <p style="margin-top: 10px; color: #d84315;"><strong>⚠️ ただし以下の点にご注意ください:</strong></p>
+                            <ul style="color: #555;">
+                                <li>実際に成績データを添付する際は、<strong>学生の氏名や学籍番号を削除</strong>してください</li>
+                                <li>生成された問題に虚偽の内容が含まれる可能性があります(必ず確認してください)</li>
+                                <li>生成物が既存の問題集と類似する可能性があります(公開前に確認してください)</li>
+                                <li>生成物をそのまま使用せず、必ず教員自身で内容を確認・修正してください</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
             }
+            
+            judgmentReason.innerHTML = overallReason;
             
             // 問題詳細の表示
             issuesContainer.innerHTML = '';
             if (detectedIssues.length > 0) {
                 const issuesDiv = document.createElement('div');
                 issuesDiv.className = 'result-details';
-                issuesDiv.innerHTML = '<h3>🔍 検出された問題</h3>';
+                issuesDiv.innerHTML = '<h3>⚠️ 検出された具体的な問題</h3>';
                 
                 detectedIssues.forEach(issue => {
                     const issueDiv = document.createElement('div');
@@ -516,6 +634,10 @@
                         ${matchDetails}
                         <p>${issue.description}</p>
                         <span class="guideline-ref">${issue.guidelineRef}</span>
+                        <div class="issue-reason">
+                            <h5>📌 この判定の理由</h5>
+                            <p>${issue.reason}</p>
+                        </div>
                         <div class="suggestion">
                             <h4>💡 改善提案</h4>
                             <p>${issue.suggestion}</p>
@@ -537,26 +659,43 @@
                 recDiv.innerHTML += `
                     <div class="issue-item">
                         <h4>🚫 この内容は現状では使用できません</h4>
-                        <p>検出された問題を修正してから再度チェックしてください。特に個人情報、機密情報、患者情報は削除または匿名化が必須です。</p>
+                        <p>検出された問題を修正してから再度チェックしてください。特に以下の対応が必須です:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                            <li><strong>個人情報</strong>: 氏名、学籍番号、連絡先などは完全に削除または「学生A」などに置き換え</li>
+                            <li><strong>患者情報</strong>: 完全に匿名化するか、架空の症例として一般化</li>
+                            <li><strong>機密情報</strong>: 秘密指定された情報や契約で保護された情報は削除</li>
+                            <li><strong>診療判断</strong>: 診断や治療方針の決定をAIに委ねる表現は削除</li>
+                        </ul>
                     </div>
                 `;
             } else if (highestSeverity === 'warning') {
                 recDiv.innerHTML += `
                     <div class="suggestion">
                         <h4>⚠️ 修正後の使用を推奨します</h4>
-                        <p>検出された問題を確認し、可能な限り修正してください。著作権や商標権に関わる内容は、生成物の利用時にも十分注意してください。</p>
+                        <p>検出された問題を確認し、可能な限り修正してください:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                            <li><strong>著作権</strong>: 特定の作家名や作品名は削除し、一般的な表現に変更</li>
+                            <li><strong>商標</strong>: 既存ブランド名は削除し、「大手メーカー風」などに変更</li>
+                            <li><strong>生成物の利用</strong>: 公開・配信前に必ず類似性の確認を実施</li>
+                        </ul>
                     </div>
                 `;
             } else {
                 recDiv.innerHTML += `
                     <div class="suggestion">
-                        <h4>✅ 安全に使用できます</h4>
-                        <p>明らかな問題は検出されませんでしたが、以下の点にご注意ください:</p>
+                        <h4>✅ 使用可能ですが、以下の点に注意してください</h4>
+                        <p><strong>「ある科目の全学生の成績を添付」</strong>という表現自体は問題ありませんが、実際にファイルを添付する際は:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                            <li><strong>学生の氏名や学籍番号は必ず削除</strong>してください(「学生1」「学生2」などに置き換え)</li>
+                            <li>成績データのみ(点数や評価)であれば個人情報に該当しない可能性が高いです</li>
+                            <li>ただし、成績と個人が紐づく情報(出席番号など)があれば削除が必要です</li>
+                        </ul>
+                        <p style="margin-top: 15px;"><strong>生成AIの一般的な注意事項:</strong></p>
                         <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
                             <li>生成された内容に虚偽が含まれる可能性があります(ガイドライン6条(1))</li>
                             <li>生成物が既存の著作物と類似する可能性があります(ガイドライン6条(2))</li>
                             <li>生成物を公開・配信する場合は著作権の確認をしてください</li>
-                            <li>診療判断や教育判断には必ず人間の最終確認が必要です</li>
+                            <li>生成物はあくまで参考とし、必ず人間が最終確認を行ってください</li>
                         </ul>
                     </div>
                 `;
@@ -569,7 +708,7 @@
             resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
         
-        // Enterキーでの送信を防止
+        // Enterキーでの送信を防止(Ctrl+Enterで実行)
         document.getElementById('userInput').addEventListener('keydown', function(e) {
             if (e.key === 'Enter' && e.ctrlKey) {
                 performCheck();
